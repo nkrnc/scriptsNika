@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekend Countdown</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #clock {
+            font-size: 48px;
+            cursor: pointer;
+        }
+        #title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">Weekend Countdown</div>
+    <div id="clock" onclick="showMessage()">00:00:00</div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const weekend = new Date();
+            weekend.setHours(24 * (5 - now.getDay()), 0, 0, 0); // Friday midnight
+
+            const totalSeconds = Math.floor((weekend - now) / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            const clock = document.getElementById('clock');
+            clock.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            if (hours === 0 && minutes === 0 && seconds === 0) {
+                clearInterval(interval);
+            }
+        }
+
+        function showMessage() {
+            alert('Almost there!');
+        }
+
+        const interval = setInterval(updateClock, 1000);
+        updateClock(); // Initialize clock immediately
+    </script>
+</body>
+</html>
+
+
